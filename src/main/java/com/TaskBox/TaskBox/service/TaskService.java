@@ -9,4 +9,10 @@ public interface TaskService {
     List<TaskEntity> readAll();
 
     TaskEntity saveNote(TaskEntity taskEntity);
+
+    TaskEntity findById(Long id);
+
+     void removeNote(Long id);
+
+
 }

@@ -21,4 +21,20 @@ public class TaskServiecImpl implements TaskService{
     public TaskEntity saveNote(TaskEntity taskEntity) {
         return taskRepo.save(taskEntity);
     }
+
+    @Override
+    public TaskEntity findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID must not be null");
+        }
+        return taskRepo.findById(id).
+                orElseThrow(() -> new RuntimeException("Note is not present for id "+id));
+    }
+
+    @Override
+    public void removeNote(Long id) {
+        TaskEntity existingNote =findById(id);
+        taskRepo.delete(existingNote);
+    }
+
 }

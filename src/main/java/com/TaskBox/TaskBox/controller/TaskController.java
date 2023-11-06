@@ -4,14 +4,18 @@ package com.TaskBox.TaskBox.controller;
 import com.TaskBox.TaskBox.entity.TaskEntity;
 import com.TaskBox.TaskBox.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,8 +82,62 @@ public class TaskController {
     })
     @Tag(name = "v1",description = "verison v1")
     @PostMapping("/save")
-    public TaskEntity saveNote(@RequestBody TaskEntity taskEntity ){
+    public TaskEntity saveNote( @Valid @RequestBody TaskEntity taskEntity ){
        return service.saveNote(taskEntity);
+    }
+
+
+    @Operation(tags = tag,description = "API to find the Task by using ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "404",description = "Page not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "403",description = "Access Denied", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "401",description = "Unauthorized", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "400",description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "200",description = "Success", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @Tag(name = "v1",description = "verison v1")
+    @GetMapping("/task/{id}")
+    public TaskEntity getTask(@PathVariable Long id){
+         return service.findById(id);
+
+    }
+
+
+    @Operation(tags = tag,description = "API to delete the Task")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "404",description = "Page not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "403",description = "Access Denied", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "401",description = "Unauthorized", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "400",description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "200",description = "Success", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @Tag(name = "v1",description = "verison v1")
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<HttpStatus> deleteNote(@PathVariable Long id){
+         service.removeNote(id);
+        return new  ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+    @Operation(tags = tag,description = "API to update the Task")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "404",description = "Page not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "403",description = "Access Denied", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "401",description = "Unauthorized", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "400",description = "Bad Request", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse( responseCode = "200",description = "Success", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @Tag(name = "v1",description = "verison v1")
+    @PutMapping("/update")
+    public TaskEntity updateNote(@RequestBody TaskEntity updatedNote){
+         return service.saveNote(updatedNote);
     }
 
 }

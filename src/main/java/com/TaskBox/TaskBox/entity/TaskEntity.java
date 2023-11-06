@@ -28,7 +28,7 @@ public class TaskEntity {
     private String title;
 
     @NotNull
-    @Size(min = 6,max = 100,message = "Description should be between 6-100 character")
+    @Size(min = 6,message = "Description should be between 6-100 character")
     @Column(name = "Description")
     private String body;
 
