@@ -2,8 +2,12 @@ package com.TaskBox.TaskBox.documentation;
 
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.security.SecuritySchemes;
 
 
 @OpenAPIDefinition(
@@ -18,6 +22,13 @@ import io.swagger.v3.oas.annotations.info.Info;
 )
 
 
-
+@SecuritySchemes({
+        @SecurityScheme(
+                name = "APIKeyAuth",
+                type = SecuritySchemeType.APIKEY,
+                in = SecuritySchemeIn.HEADER,
+                paramName = "API"
+        )
+})
 public class TaskApiDocumentation {
 }

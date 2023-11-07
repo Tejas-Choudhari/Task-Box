@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,9 @@ public class TaskController {
     @Value("${app.version}")
     private String verison;
 
-    @Operation(tags = tag,description = "API to check the version of application")
+
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to check the version of application")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -51,7 +54,9 @@ public class TaskController {
         return "Version : "+ verison;
     }
 
-    @Operation(tags = tag,description = "API to get list of all Tasks")
+
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to get list of all Tasks")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -69,8 +74,8 @@ public class TaskController {
     }
 
 
-
-    @Operation(tags = tag,description = "API to save the Tasks")
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to save the Tasks")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -87,7 +92,8 @@ public class TaskController {
     }
 
 
-    @Operation(tags = tag,description = "API to find the Task by using ID")
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to find the Task by using ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -105,7 +111,8 @@ public class TaskController {
     }
 
 
-    @Operation(tags = tag,description = "API to delete the Task")
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to delete the Task")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -124,7 +131,9 @@ public class TaskController {
 
 
 
-    @Operation(tags = tag,description = "API to update the Task")
+
+ @SecurityRequirement(name = "APIKeyAuth")
+ @Operation(tags = tag,description = "API to update the Task")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "Request cannot be proceed",content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
